@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:13.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: peter
+      POSTGRES_PASSWORD: 123456
+    networks:
+      - local-keycloak
+
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: local_keycloak
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: peter
+      DB_PASSWORD: 123456
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    image: jboss/keycloak:14.0.0
+    ports:
+      - "28080:8080"
+    restart: unless-stopped
+    networks:
+      - local-keycloak
+
+networks:
+  local-keycloak:
