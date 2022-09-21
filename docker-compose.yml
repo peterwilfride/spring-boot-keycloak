@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: peter
       POSTGRES_PASSWORD: 123456
+    volumes:
+      - ./postgres-data:/var/lib/postgresql
     networks:
       - local-keycloak
 
@@ -24,6 +26,8 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
     image: jboss/keycloak:14.0.0
+    volumes:
+      - ./keycloak:/opt/jboss/keycloak/themes/keycloak
     ports:
       - "28080:8080"
     restart: unless-stopped
