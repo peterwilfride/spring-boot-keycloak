@@ -24,6 +24,8 @@ public class SecurityResource {
     @GetMapping(value = "/has-role")
     @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public ResponseEntity<Void> isUser() {
+
+
         return ResponseEntity.ok().build();
     }
 
