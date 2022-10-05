@@ -1,6 +1,7 @@
 package br.com.macorin.securityapi.resources;
 
 import org.keycloak.KeycloakPrincipal;
+import org.keycloak.admin.client.Keycloak;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -33,14 +34,19 @@ public class SecurityResource {
         KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
         String username = principal.getKeycloakSecurityContext().getToken().getPreferredUsername();
         String email = principal.getKeycloakSecurityContext().getToken().getEmail();
-        return ResponseEntity.ok(username + "\n" + email);
+        String scopes = principal.getKeycloakSecurityContext().getToken().getScope();
+
+        //Keycloak.getInstance("http://localhost:28080/auth","pagrn","admin","admin", "auth-pagrn");
+        //KeycloakBuilder.builder().serverUrl("http://localhost:28080/auth").realm("pagrn").grantType("password").username("admin").password("admin").clientId("auth-pagrn").clientSecret("f9ec895b-7d36-44aa-820c-c6aaa2c80ad0").build().realm("pagrn").toRepresentation()
+        return ResponseEntity.ok(username + "\n" + email + "\n" + scopes);
+
     }
 
     /**
      * endpoint onde o usuario tem que ter a role admin
      */
     @GetMapping(value = "/is-admin")
-    @PreAuthorize("hasAnyAuthority('ROLE_admin')")
+    @PreAuthorize("hasAnyAuthority('ROLE_admin')" )
     public ResponseEntity<Void> isAdmin() {
         return ResponseEntity.ok().build();
     }

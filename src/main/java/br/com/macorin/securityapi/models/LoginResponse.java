@@ -7,12 +7,6 @@ public class LoginResponse {
     private String refresh_expires_in;
     private String token_type;
 
-    private String username;
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getAccess_token() {
         return access_token;
     }

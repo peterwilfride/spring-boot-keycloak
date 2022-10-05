@@ -4,6 +4,8 @@ public class LoginRequest {
     private String username;
     private String password;
 
+    private String scope;
+
     public String getUsername() {
         return username;
     }
@@ -18,5 +20,13 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }
