@@ -1,0 +1,35 @@
+server:
+      port: ${SERVER_PORT}
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:28080/auth/realms/pagrn/protocol/openid-connect/certs"
+      client:
+        registration:
+          oauth2-client-credentials:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope: email, profile
+            authorization-grant-type: ${AUTHORIZATION-GRANT-TYPE}
+            provider: keycloak
+        provider:
+          keycloak:
+            issuer-uri: "http://localhost:28080/auth/realms/pagrn"
+            token-uri: "http://localhost:28080/auth/realms/pagrn/protocol/openid-connect/token"
+
+keycloak:
+  realm: ${REALM}
+  resource: ${CLIENT_ID}
+  auth-server-url: http://localhost:28080/auth
+  ssl-required: external
+  public-client: true
+
+
+
+#logging.level.org.springframework.security=DEBUG
+#spring.application.name=security
+#spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8080/auth/realms/security-api/protocol/openid-connect/certs
+#spring.security.oauth2.client.registration.oauth2-client-credentials.redirect-uri=http://localhost:8080/login/oauth2/code/oauth2-client-credential
